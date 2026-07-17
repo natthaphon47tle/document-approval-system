@@ -1,0 +1,335 @@
+{% extends "layout/base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="fw-bold mb-1">
+
+                📄 {{ document.title }}
+
+            </h2>
+
+            <small class="text-muted">
+
+                {{ document.document_no }}
+
+            </small>
+
+        </div>
+
+        {% if document.status == "Approved" %}
+
+        <span class="badge bg-success fs-6">
+
+            Approved
+
+        </span>
+
+        {% elif document.status == "Rejected" %}
+
+        <span class="badge bg-danger fs-6">
+
+            Rejected
+
+        </span>
+
+        {% else %}
+
+        <span class="badge bg-warning text-dark fs-6">
+
+            Waiting Manager
+
+        </span>
+
+        {% endif %}
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-body">
+
+            <!-- Document Information -->
+
+            <div class="card mb-4">
+
+                <div class="card-header fw-bold">
+
+                    📑 Document Information
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row mb-3">
+
+                        <div class="col-md-3">
+
+                            <strong>Document No</strong>
+
+                        </div>
+
+                        <div class="col-md-9">
+
+                            {{ document.document_no }}
+
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                    <div class="row mb-3">
+
+                        <div class="col-md-3">
+
+                            <strong>Title</strong>
+
+                        </div>
+
+                        <div class="col-md-9">
+
+                            {{ document.title }}
+
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                    <div class="row mb-3">
+
+                        <div class="col-md-3">
+
+                            <strong>Document Type</strong>
+
+                        </div>
+
+                        <div class="col-md-9">
+
+                            {{ document.document_type }}
+
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                    <div class="row mb-3">
+
+                        <div class="col-md-3">
+
+                            <strong>Created By</strong>
+
+                        </div>
+
+                        <div class="col-md-9">
+
+                            {{ document.created_by }}
+
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+
+                        <div class="col-md-3">
+
+                            <strong>Description</strong>
+
+                        </div>
+
+                        <div class="col-md-9">
+
+                            {{ document.description }}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="card mb-4">
+
+                <div class="card-header fw-bold">
+
+                    📎 Attachment
+
+                </div>
+
+                <div class="card-body">
+
+                    {% if document.file_name %}
+
+                    <p class="mb-3">
+
+                        <i class="bi bi-file-earmark-pdf text-danger"></i>
+
+                        {{ document.file_name }}
+
+                    </p>
+
+                    <a href="/documents/view/{{ document.file_name }}" target="_blank" class="btn btn-outline-primary">
+
+                        <i class="bi bi-eye"></i>
+
+                        View PDF
+
+                    </a>
+
+                    <a class="btn btn-outline-success ms-2" href="/documents/download/{{ document.file_name }}">
+
+                        ⬇ Download
+
+                    </a>
+
+                    {% else %}
+
+                    <p class="text-muted">
+
+                        ไม่มีไฟล์แนบ
+
+                    </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            {% if current_step %}
+
+            <hr>
+
+            <h5>Approval</h5>
+
+            <form method="POST">
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Comment
+
+                    </label>
+
+                    <textarea class="form-control" name="comment" rows="4"
+                        placeholder="Enter your comment here..."></textarea>
+
+                </div>
+
+                <button type="submit" formaction="/documents/approve/{{ document.id }}" class="btn btn-success">
+
+                    <i class="bi bi-check-circle"></i>
+
+                    Approve
+
+                </button>
+
+                <button type="submit" formaction="/documents/reject/{{ document.id }}" class="btn btn-danger ms-2">
+
+                    <i class="bi bi-x-circle"></i>
+
+                    Reject
+
+                </button>
+
+            </form>
+
+            {% endif %}
+            <hr>
+
+            <div class="card mt-4">
+
+                <div class="card-header fw-bold">
+
+                    📜 Approval History
+
+                </div>
+
+                <div class="card-body">
+
+                    {% if history %}
+
+                    {% for item in history %}
+
+                    <div class="border-start border-4 ps-3 mb-4
+                {% if item.action == 'Approved' %}
+                    border-success
+                {% else %}
+                    border-danger
+                {% endif %}">
+
+                        <h6 class="mb-1">
+
+                            {{ item.approver }}
+
+                        </h6>
+
+                        <span class="badge
+                    {% if item.action == 'Approved' %}
+                        bg-success
+                    {% else %}
+                        bg-danger
+                    {% endif %}">
+
+                            {{ item.action }}
+
+                        </span>
+
+                        <div class="text-muted mt-2">
+
+                            {{ item.approved_at.strftime('%d/%m/%Y %H:%M') }}
+
+                        </div>
+
+                        {% if item.comment %}
+
+                        <div class="mt-2">
+
+                            <strong>Comment</strong>
+
+                            <div>
+
+                                {{ item.comment }}
+
+                            </div>
+
+                        </div>
+
+                        {% endif %}
+
+                    </div>
+
+                    {% endfor %}
+
+                    {% else %}
+
+                    <p class="text-muted">
+
+                        ยังไม่มีประวัติการอนุมัติ
+
+                    </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

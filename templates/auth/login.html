@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+
+</head>
+
+<body>
+
+<div class="container-fluid">
+
+    <div class="row vh-100">
+
+        <!-- Left -->
+
+        <div class="col-lg-6 left-panel">
+
+            <div>
+
+                <h1>DAS</h1>
+
+                <h3>Document Approval System</h3>
+
+                <p>Paperless Office Workflow</p>
+
+            </div>
+
+        </div>
+
+        <!-- Right -->
+
+        <div class="col-lg-6 d-flex align-items-center justify-content-center">
+
+            <div class="login-card">
+
+                <h2>Welcome Back</h2>
+
+                <p class="text-muted">
+
+                    Sign in to continue
+
+                </p>
+
+                <form method="POST" action="/">
+
+                    <div class="mb-3">
+
+                        <label>Employee ID</label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="employee_id"
+                            placeholder="Employee ID"
+                            required>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label>Password</label>
+
+                        <input
+                            type="password"
+                            class="form-control"
+                            name="password"
+                            placeholder="Password"
+                            required>
+
+                    </div>
+
+                    <div class="form-check mb-4">
+
+                        <input
+                            class="form-check-input"
+                            type="checkbox">
+
+                        <label class="form-check-label">
+
+                            Remember Me
+
+                        </label>
+
+                    </div>
+
+                    <button
+                        class="btn btn-primary w-100">
+
+                        <i class="bi bi-box-arrow-in-right"></i>
+
+                        Login
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

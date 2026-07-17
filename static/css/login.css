@@ -1,0 +1,73 @@
+body{
+
+    background:#F8FAFC;
+
+    font-family:'Segoe UI',sans-serif;
+
+}
+
+.left-panel{
+
+    background:#0F172A;
+
+    color:white;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+}
+
+.left-panel h1{
+
+    font-size:70px;
+
+    font-weight:bold;
+
+}
+
+.left-panel h3{
+
+    margin-top:20px;
+
+}
+
+.login-card{
+
+    width:420px;
+
+    background:white;
+
+    padding:45px;
+
+    border-radius:18px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.08);
+
+}
+
+.login-card h2{
+
+    font-weight:bold;
+
+    margin-bottom:10px;
+
+}
+
+.form-control{
+
+    height:48px;
+
+}
+
+.btn{
+
+    height:50px;
+
+    border-radius:10px;
+
+}

@@ -1,0 +1,42 @@
+{% extends "layout/base.html" %}
+
+{% block content %}
+
+<h2 class="mb-4">Approval History</h2>
+
+<table class="table table-striped">
+
+    <thead class="table-dark">
+
+        <tr>
+            <th>Document ID</th>
+            <th>Approver</th>
+            <th>Action</th>
+            <th>Date</th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for h in histories %}
+
+        <tr>
+
+            <td>{{ h.document_id }}</td>
+
+            <td>{{ h.approver }}</td>
+
+            <td>{{ h.action }}</td>
+
+            <td>{{ h.approved_at }}</td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

@@ -1,0 +1,284 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="card shadow-sm">
+
+        <div class="card-header">
+
+            <h3>Create Document</h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <form method="POST" action="/documents/create" enctype="multipart/form-data">
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">Document Type</label>
+
+                        <select class="form-select" name="document_type">
+
+                            <option>Approve Supplier</option>
+
+                            <option>Approve Customer</option>
+
+                            <option>Purchase Request</option>
+
+                            <option>Purchase Order</option>
+
+                            <option>Quotation Approval</option>
+
+                            <option>Invoice Approval</option>
+
+                            <option>Expense Claim</option>
+
+                            <option>Leave Request</option>
+
+                            <option>Other</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">Document Title</label>
+
+                        <input type="text" class="form-control" name="title" required>
+
+                    </div>
+
+                    <div class="col-12 mb-3">
+
+                        <label class="form-label">Description</label>
+
+                        <textarea class="form-control" rows="5" name="description"></textarea>
+
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+
+                        <label class="form-label">Attachment</label>
+
+                        <input type="file" class="form-control" name="document_file">
+
+                    </div>
+
+                    <div class="col-12">
+
+                        <hr>
+
+                        <h5 class="mb-3">
+
+                            <i class="bi bi-diagram-3"></i>
+
+                            Approval Workflow
+
+                        </h5>
+
+                        <div id="approver-container">
+
+                            <div class="approver-item border rounded p-3 mb-3">
+
+                                <label class="form-label">
+
+                                    Approver 1
+
+                                </label>
+
+                                <select class="form-select" name="approvers[]">
+
+                                    <option value="">
+                                        -- Select Approver --
+                                    </option>
+
+                                    {% for user in users %}
+
+                                    <option value="{{ user.id }}">
+
+                                        {{ user.fullname }} - {{ user.position }}
+
+                                    </option>
+
+                                    {% endfor %}
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <button type="button" id="add-approver" class="btn btn-outline-primary">
+
+                            <i class="bi bi-plus-circle"></i>
+
+                            Add Approver
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <button class="btn btn-primary" id="save-document">
+
+                    <i class="bi bi-save"></i>
+
+                    Save Document
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+
+    let step = 1;
+
+    //=========================
+    // Create HTML
+    //=========================
+
+    function createApproverHTML(step) {
+
+        return `
+    <div class="approver-item border rounded p-3 mb-3">
+
+        <label class="form-label">
+
+            Step ${step}
+
+        </label>
+
+        <select
+            class="form-select"
+            name="approvers[]">
+
+            <option value="">
+                -- Select Approver --
+            </option>
+
+            {% for user in users %}
+
+            <option value="{{ user.id }}">
+                {{ user.fullname }} - {{ user.position }}
+            </option>
+
+            {% endfor %}
+
+        </select>
+
+        <div class="mt-2">
+
+            <button
+                type="button"
+                class="btn btn-sm btn-outline-danger remove-step">
+
+                <i class="bi bi-trash"></i>
+
+                Remove
+
+            </button>
+
+        </div>
+
+    </div>
+    `;
+
+    }
+
+    //=========================
+    // Add Step
+    //=========================
+
+    function addStep() {
+
+        step++;
+
+        document
+            .getElementById("approver-container")
+            .insertAdjacentHTML(
+                "beforeend",
+                createApproverHTML(step)
+            );
+
+    }
+
+    //=========================
+    // Update Number
+    //=========================
+
+    function updateStepNumber() {
+
+        const items = document.querySelectorAll(".approver-item");
+
+        step = 0;
+
+        items.forEach(function (item) {
+
+            step++;
+
+            item.querySelector("label").innerHTML =
+                "Step " + step;
+
+        });
+
+    }
+
+    //=========================
+    // Remove
+    //=========================
+
+    function removeStep(e) {
+
+        if (!e.target.closest(".remove-step"))
+            return;
+
+        const items =
+            document.querySelectorAll(".approver-item");
+
+        if (items.length == 1) {
+
+            alert("At least one approver is required.");
+
+            return;
+
+        }
+
+        e.target
+            .closest(".approver-item")
+            .remove();
+
+        updateStepNumber();
+
+    }
+
+    //=========================
+    // Event
+    //=========================
+
+    document
+        .getElementById("add-approver")
+        .addEventListener("click", addStep);
+
+    document
+        .addEventListener("click", removeStep);
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "layout/base.html" %}
+
+{% block content %}
+
+<h2 class="mb-4">Waiting Approval</h2>
+
+<p>Count = {{ waiting_steps|length }}</p>
+
+<table class="table table-striped">
+
+    <thead class="table-dark">
+        <tr>
+            <th>Document No</th>
+            <th>Title</th>
+            <th>Step</th>
+            <th>Status</th>
+            <th width="180">Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for step in waiting_steps %}
+
+        <tr>
+
+            <td>{{ step.document.document_no }}</td>
+
+            <td>{{ step.document.title }}</td>
+
+            <td>{{ step.sequence }}</td>
+
+            <td>
+
+                <span class="badge bg-warning">
+
+                    {{ step.status }}
+
+                </span>
+
+            </td>
+
+            <td>
+
+                <a href="/documents/{{ step.document.id }}" class="btn btn-primary btn-sm">
+
+                    View
+
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% else %}
+
+        <tr>
+
+            <td colspan="5" class="text-center">
+
+                No documents waiting for approval.
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

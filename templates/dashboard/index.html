@@ -1,0 +1,357 @@
+{% extends "layout/base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <h2 class="mb-4">Dashboard</h2>
+
+    {% if waiting_documents > 0 %}
+
+    <div class="alert alert-warning">
+
+        <strong>🔔 Notification</strong>
+
+        <br>
+
+        You have
+
+        <strong>{{ waiting_documents }}</strong>
+
+        document(s) waiting for approval.
+
+    </div>
+
+    {% endif %}
+
+    <form method="GET" action="/dashboard" class="mb-4">
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <input type="text" class="form-control" name="search" placeholder="Search Document No or Title..."
+                    value="{{ search }}">
+
+            </div>
+
+            <div class="col-md-3">
+
+                <select class="form-select" name="status">
+
+                    <option value="">All Status</option>
+
+                    <option value="Waiting Manager" {% if status=="Waiting Manager" %}selected{% endif %}>
+                        Waiting
+                    </option>
+
+                    <option value="Approved" {% if status=="Approved" %}selected{% endif %}>
+                        Approved
+                    </option>
+
+                    <option value="Rejected" {% if status=="Rejected" %}selected{% endif %}>
+                        Rejected
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <button class="btn btn-primary w-100">
+
+                    Filter
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </form>
+
+    <div class="row">
+
+        <div class="col-md-3 mb-3">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-body text-center">
+
+                    <h6 class="text-muted">Total Documents</h6>
+
+                    <h2 class="fw-bold">{{ total_documents }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3 mb-3">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-body text-center">
+
+                    <h6 class="text-warning">Waiting</h6>
+
+                    <h2 class="fw-bold">{{ waiting_documents }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3 mb-3">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-body text-center">
+
+                    <h6 class="text-success">Approved</h6>
+
+                    <h2 class="fw-bold">{{ approved_documents }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3 mb-3">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-body text-center">
+
+                    <h6 class="text-danger">Rejected</h6>
+
+                    <h2 class="fw-bold">{{ rejected_documents }}</h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="card mt-4 shadow-sm border-0">
+
+        <div class="card-header fw-bold">
+
+            ⚡ Quick Actions
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-3 mb-2">
+
+                    <a href="/documents/create" class="btn btn-primary w-100">
+
+                        Upload Document
+
+                    </a>
+
+                </div>
+
+                <div class="col-md-3 mb-2">
+
+                    <a href="/documents" class="btn btn-outline-primary w-100">
+
+                        My Documents
+
+                    </a>
+
+                </div>
+
+                <div class="col-md-3 mb-2">
+
+                    <a href="/documents/waiting" class="btn btn-outline-warning w-100">
+
+                        Waiting Approval
+
+                    </a>
+
+                </div>
+
+                <div class="col-md-3 mb-2">
+
+                    <a href="/history" class="btn btn-outline-success w-100">
+
+                        History
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="card mt-4 shadow-sm border-0">
+
+        <div class="card-header fw-bold">
+
+            📄 Recent Documents
+
+        </div>
+
+        <div class="card-body p-0">
+
+            <table class="table table-hover mb-0">
+
+                <thead class="table-light">
+
+                    <tr>
+
+                        <th>Document No</th>
+
+                        <th>Title</th>
+
+                        <th>Status</th>
+
+                        <th width="120">Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for doc in recent_documents %}
+
+                    <tr>
+
+                        <td>{{ doc.document_no }}</td>
+
+                        <td>{{ doc.title }}</td>
+
+                        <td>
+
+                            {% if doc.status == "Approved" %}
+
+                            <span class="badge bg-success">Approved</span>
+
+                            {% elif doc.status == "Rejected" %}
+
+                            <span class="badge bg-danger">Rejected</span>
+
+                            {% else %}
+
+                            <span class="badge bg-warning text-dark">
+                                Waiting
+                            </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+
+                            <a href="/documents/{{ doc.id }}" class="btn btn-sm btn-primary">
+
+                                View
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <div class="card mt-4 shadow-sm border-0">
+
+        <div class="card-header fw-bold">
+
+            ⏳ Waiting Approval
+
+        </div>
+
+        <div class="card-body p-0">
+
+            <table class="table table-hover mb-0">
+
+                <thead class="table-light">
+
+                    <tr>
+
+                        <th>Document No</th>
+
+                        <th>Title</th>
+
+                        <th>Created By</th>
+
+                        <th width="120">Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for step in waiting_approvals %}
+
+                    <tr>
+
+                        <td>{{ step.document.document_no }}</td>
+
+                        <td>{{ step.document.title }}</td>
+
+                        <td>{{ step.document.created_by }}</td>
+
+                        <td>
+
+                            <a href="/documents/{{ step.document.id }}"
+                                class="btn btn-sm btn-outline-primary">
+
+                                View
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    {% else %}
+
+                    <tr>
+
+                        <td colspan="4" class="text-center text-muted">
+
+                            ไม่มีเอกสารรออนุมัติ
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

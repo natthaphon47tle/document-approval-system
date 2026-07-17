@@ -1,0 +1,162 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:#F8FAFC;
+}
+
+.wrapper{
+    display:flex;
+}
+
+.sidebar{
+
+    width:260px;
+
+    height:100vh;
+
+    background:#0F172A;
+
+    color:white;
+
+    position:fixed;
+
+}
+
+.logo{
+
+    padding:25px;
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    text-align:center;
+
+    border-bottom:1px solid #1E293B;
+
+}
+
+.sidebar a{
+
+    color:white;
+
+    text-decoration:none;
+
+    display:block;
+
+    padding:15px 25px;
+
+    transition:.3s;
+
+}
+
+.sidebar a:hover{
+
+    background:#2563EB;
+
+}
+
+.sidebar i{
+
+    margin-right:12px;
+
+}
+
+.main{
+
+    margin-left:260px;
+
+    width:100%;
+
+}
+
+.topbar{
+
+    background:white;
+
+    padding:18px 30px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+
+}
+
+.content{
+
+    padding:30px;
+
+}
+
+/* Dashboard Cards */
+
+.dashboard-card{
+
+    border:none;
+
+    border-radius:15px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+}
+
+.dashboard-card:hover{
+
+    transform:translateY(-5px);
+
+}
+
+.dashboard-card .card-body{
+
+    text-align:center;
+
+}
+
+.dashboard-card h2{
+
+    font-size:34px;
+
+    font-weight:bold;
+
+    margin-top:20px;
+
+}
+
+.dashboard-card p{
+
+    color:#6B7280;
+
+}
+
+.icon{
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin:auto;
+
+    color:white;
+
+    font-size:28px;
+
+}

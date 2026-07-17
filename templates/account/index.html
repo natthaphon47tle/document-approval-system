@@ -1,0 +1,91 @@
+{% extends "layout/base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <h2 class="mb-4">
+
+        My Account
+
+    </h2>
+
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+            <table class="table">
+
+                <tr>
+                    <th width="220">Employee ID</th>
+                    <td>{{ user.employee_id }}</td>
+                </tr>
+
+                <tr>
+                    <th>Username</th>
+                    <td>{{ user.username }}</td>
+                </tr>
+
+                <tr>
+                    <th>Role</th>
+                    <td>{{ user.role }}</td>
+                </tr>
+
+            </table>
+
+            <hr>
+
+            <h4 class="mt-4">
+                <i class="bi bi-key"></i>
+                Change Password
+            </h4>
+
+            <form action="/account/change-password" method="POST">
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Current Password
+                    </label>
+
+                    <input type="password" class="form-control" name="current_password" required>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        New Password
+                    </label>
+
+                    <input type="password" class="form-control" name="new_password" required>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Confirm Password
+                    </label>
+
+                    <input type="password" class="form-control" name="confirm_password" required>
+
+                </div>
+
+                <button class="btn btn-primary">
+
+                    <i class="bi bi-check-circle"></i>
+
+                    Save Password
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
