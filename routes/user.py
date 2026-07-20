@@ -57,3 +57,22 @@ def add_user():
     db.session.commit()
 
     return redirect("/users")
+
+@user_bp.route("/users/update/<int:id>", methods=["POST"])
+@login_required
+def update_user(id):
+
+    if current_user.role != "Admin":
+        abort(403)
+
+    user = User.query.get_or_404(id)
+
+    user.fullname = request.form["fullname"]
+    user.department = request.form["department"]
+    user.position = request.form["position"]
+    user.role = request.form["role"]
+    user.status = request.form["status"]
+
+    db.session.commit()
+
+    return redirect("/users")
