@@ -10,6 +10,8 @@ app.config.from_object(Config)
 
 app.config["UPLOAD_FOLDER"] = "uploads"
 
+os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
+
 db.init_app(app)
 
 login_manager.init_app(app)
