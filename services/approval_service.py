@@ -46,7 +46,7 @@ def approve(document_id, user, comment):
 
     history = ApprovalHistory(
         document_id=document.id,
-        approver=user.employee_id,
+        approver=user.fullname,
         action="Approved",
         comment=comment
     )
@@ -151,7 +151,7 @@ def reject(document_id, user, comment):
 
     history = ApprovalHistory(
         document_id=document.id,
-        approver=user.employee_id,
+        approver=user.fullname,
         action="Rejected",
         comment=comment
     )
