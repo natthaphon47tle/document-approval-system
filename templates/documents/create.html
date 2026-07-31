@@ -4,11 +4,17 @@
 
 <div class="container-fluid">
 
-    <div class="card shadow-sm">
+    <div class="card shadow-sm border-0">
 
         <div class="card-header">
 
-            <h3>Create Document</h3>
+            <h3 class="mb-0">
+
+                <i class="bi bi-file-earmark-plus"></i>
+
+                Create Document
+
+            </h3>
 
         </div>
 
@@ -84,7 +90,7 @@
 
                         <div id="approver-container">
 
-                            <div class="approver-item border rounded p-3 mb-3">
+                            <div class="approver-item border rounded p-3 mb-3 bg-light">
 
                                 <label class="form-label">
 
@@ -114,7 +120,7 @@
 
                         </div>
 
-                        <button type="button" id="add-approver" class="btn btn-outline-primary">
+                        <button type="button" id="add-approver" class="btn btn-outline-primary w-100 w-md-auto">
 
                             <i class="bi bi-plus-circle"></i>
 
@@ -126,14 +132,18 @@
 
                 </div>
 
-                <button class="btn btn-primary" id="save-document">
+                <div class="d-grid mt-4">
 
-                    <i class="bi bi-save"></i>
+                    <button class="btn btn-primary btn-lg" id="save-document">
 
-                    Save Document
+                        <i class="bi bi-save"></i>
 
-                </button>
+                        Save Document
 
+                    </button>
+
+                </div>
+                
             </form>
 
         </div>
