@@ -6,6 +6,8 @@
 
 <p>Count = {{ waiting_steps|length }}</p>
 
+<div class="table-responsive d-none d-lg-block">
+
 <table class="table table-striped">
 
     <thead class="table-dark">
@@ -69,5 +71,75 @@
     </tbody>
 
 </table>
+
+</div>
+
+<div class="d-block d-lg-none">
+
+    {% for step in waiting_steps %}
+
+    <div class="card shadow-sm mb-3">
+
+        <div class="card-body">
+
+            <h5 class="fw-bold">
+
+                {{ step.document.document_no }}
+
+            </h5>
+
+            <hr>
+
+            <p>
+
+                <strong>Title</strong><br>
+
+                {{ step.document.title }}
+
+            </p>
+
+            <p>
+
+                <strong>Approval Step</strong><br>
+
+                {{ step.sequence }}
+
+            </p>
+
+            <p>
+
+                <strong>Status</strong><br>
+
+                <span class="badge bg-warning">
+
+                    {{ step.status }}
+
+                </span>
+
+            </p>
+
+            <a href="/documents/{{ step.document.id }}"
+
+               class="btn btn-primary w-100">
+
+                View
+
+            </a>
+
+        </div>
+
+    </div>
+
+    {% else %}
+
+    <div class="alert alert-secondary">
+
+        No documents waiting for approval.
+
+    </div>
+
+    {% endfor %}
+
+</div>
 
 {% endblock %}

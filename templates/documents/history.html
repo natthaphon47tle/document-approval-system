@@ -4,6 +4,8 @@
 
 <h2 class="mb-4">Approval History</h2>
 
+<div class="table-responsive d-none d-lg-block">
+
 <table class="table table-striped">
 
     <thead class="table-dark">
@@ -38,5 +40,57 @@
     </tbody>
 
 </table>
+
+</div>
+
+<div class="d-block d-lg-none">
+
+{% for h in histories %}
+
+<div class="card shadow-sm mb-3">
+
+<div class="card-body">
+
+<h5>
+
+Document
+
+{{ h.document_id }}
+
+</h5>
+
+<hr>
+
+<p>
+
+<strong>Approver</strong><br>
+
+{{ h.approver }}
+
+</p>
+
+<p>
+
+<strong>Action</strong><br>
+
+{{ h.action }}
+
+</p>
+
+<p>
+
+<strong>Date</strong><br>
+
+{{ h.approved_at }}
+
+</p>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
 
 {% endblock %}
