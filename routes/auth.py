@@ -19,6 +19,11 @@ def login():
 
         if user and check_password_hash(user.password, password):
 
+            # ตรวจสอบสถานะผู้ใช้งาน
+            if user.status != "Active":
+                flash("บัญชีผู้ใช้นี้ถูกปิดการใช้งาน", "danger")
+                return redirect("/")
+
             login_user(user)
 
             return redirect("/dashboard")

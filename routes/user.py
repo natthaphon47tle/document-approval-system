@@ -5,8 +5,6 @@ from werkzeug.security import generate_password_hash
 from extensions import db
 from models.user import User
 
-from flask import abort
-
 user_bp = Blueprint("user", __name__)
 
 @user_bp.route("/users")
@@ -40,7 +38,14 @@ def add_user():
     confirm_password = request.form["confirm_password"]
 
     if password != confirm_password:
-        return "Password ไม่ตรงกัน"
+        flash("Password ไม่ตรงกัน", "danger")
+        return redirect("/users")
+
+    existing_employee = User.query.filter_by(employee_id=employee_id).first()
+
+    if existing_employee:
+        flash("Employee ID นี้มีอยู่ในระบบแล้ว", "danger")
+        return redirect("/users")
 
     new_user = User(
         employee_id=employee_id,

@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from extensions import db
 
@@ -25,7 +25,10 @@ class Document(db.Model):
 
     current_approver = db.Column(db.String(20))
 
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(
+        db.DateTime,
+        default=lambda: datetime.utcnow() + timedelta(hours=7)
+    )
 
     approval_steps = db.relationship(
         "ApprovalStep",

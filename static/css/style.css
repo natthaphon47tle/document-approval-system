@@ -160,3 +160,274 @@ body{
     font-size:28px;
 
 }
+
+.card {
+    border-radius: 12px;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.badge {
+    font-size: 13px;
+}
+
+.bg-light {
+    border-left: 4px solid #198754;
+}
+
+/* Approval History */
+
+.approval-item{
+
+    background:#ffffff;
+
+    border-radius:12px;
+
+    padding:18px;
+
+    margin-bottom:15px;
+
+    min-height:auto;
+
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+
+}
+
+.approval-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:18px;
+
+}
+
+.status{
+
+    padding:8px 18px;
+
+    border-radius:30px;
+
+    color:#fff;
+
+    font-size:14px;
+
+    font-weight:600;
+
+}
+
+.status.approved{
+
+    background:#198754;
+
+}
+
+.status.rejected{
+
+    background:#dc3545;
+
+}
+
+.approval-time{
+
+    color:#6c757d;
+
+    font-size:14px;
+
+}
+
+.approval-user{
+
+    font-size:18px;
+
+    font-weight:600;
+
+    margin-bottom:15px;
+
+}
+
+.approval-user i{
+
+    color:#0d6efd;
+
+    margin-right:6px;
+
+}
+
+.approval-comment{
+
+    background:#f8f9fa;
+
+    border-left:4px solid #198754;
+
+    padding:15px;
+
+    border-radius:8px;
+
+}
+
+.approval-comment strong{
+
+    display:block;
+
+    margin-bottom:8px;
+
+}
+
+.history-card{
+
+    background:#fff;
+
+    border-radius:12px;
+
+    padding:20px;
+
+    margin-bottom:20px;
+
+    box-shadow:0 3px 12px rgba(0,0,0,.08);
+
+}
+
+.history-status{
+
+    margin-bottom:15px;
+
+}
+
+.history-title{
+
+    font-size:13px;
+
+    color:#6c757d;
+
+    font-weight:600;
+
+    margin-bottom:4px;
+
+}
+
+.history-value{
+
+    font-size:18px;
+
+    font-weight:600;
+
+    color:#212529;
+
+}
+
+.comment-box{
+
+    margin-top:18px;
+
+    background:#f8f9fa;
+
+    border-left:4px solid #198754;
+
+    border-radius:8px;
+
+    padding:15px;
+
+}
+
+.history-card hr{
+
+    margin:15px 0;
+
+}
+
+/* ===========================
+   Mobile Responsive
+=========================== */
+
+@media (max-width: 991px){
+
+    .sidebar{
+        display:none;
+    }
+
+    .main{
+        margin-left:0;
+        width:100%;
+    }
+
+    .topbar{
+
+        padding:15px;
+
+    }
+
+    .content{
+
+        padding:15px;
+
+    }
+
+    .dashboard-card{
+
+        margin-bottom:15px;
+
+    }
+
+    table{
+
+        font-size:14px;
+
+    }
+
+}
+
+/* =====================================
+   Responsive
+====================================== */
+
+@media (max-width:991px){
+
+    .sidebar{
+        display:none;
+    }
+
+    .main{
+
+        margin-left:0;
+
+        width:100%;
+
+    }
+
+    .topbar{
+
+        padding:15px;
+
+    }
+
+    .content{
+
+        padding:15px;
+
+    }
+
+    .dashboard-card{
+
+        margin-bottom:15px;
+
+    }
+
+    table{
+
+        font-size:14px;
+
+    }
+
+}
+
+.table-responsive{
+
+    overflow-x:auto;
+
+}

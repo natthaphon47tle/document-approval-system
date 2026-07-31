@@ -1,4 +1,5 @@
-from datetime import datetime
+from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 
 from extensions import db
 
@@ -23,5 +24,5 @@ class ApprovalHistory(db.Model):
 
     approved_at = db.Column(
         db.DateTime,
-        default=datetime.utcnow
+        default=lambda: datetime.utcnow() + timedelta(hours=7)
     )
