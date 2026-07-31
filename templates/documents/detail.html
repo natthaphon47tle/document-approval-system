@@ -233,13 +233,13 @@
 
                     <div class="d-grid gap-2 d-md-flex">
 
-                        <button class="btn btn-success">
+                        <button type="submit" class="btn btn-success" formaction="/documents/approve/{{ document.id }}">
 
                             Approve
 
                         </button>
 
-                        <button class="btn btn-danger">
+                        <button type="submit" class="btn btn-danger" formaction="/documents/reject/{{ document.id }}">
 
                             Reject
 
@@ -248,7 +248,6 @@
                     </div>
 
                 </form>
-
                 {% endif %}
                 <hr>
 
