@@ -2,9 +2,13 @@
 
 {% block content %}
 
-<div class="container">
+<div class="container-fluid px-3">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex flex-column flex-md-row
+    justify-content-between
+    align-items-start
+    align-items-md-center
+    mb-4">
 
         <div>
 
@@ -146,7 +150,7 @@
 
                         </div>
 
-                        <div class="col-md-9">
+                        <div class="word-break">
 
                             {{ document.description }}
 
@@ -186,87 +190,87 @@
 
                     </a>
 
-                    <a class="btn btn-outline-success ms-2" href="/documents/download/{{ document.file_name }}">
+                    <div class="d-grid gap-2 d-md-block" href="/documents/download/{{ document.file_name }}">
 
                         ⬇ Download
 
-                    </a>
+                        </a>
 
-                    {% else %}
+                        {% else %}
 
-                    <p class="text-muted">
+                        <p class="text-muted">
 
-                        ไม่มีไฟล์แนบ
+                            ไม่มีไฟล์แนบ
 
-                    </p>
+                        </p>
 
-                    {% endif %}
+                        {% endif %}
 
-                </div>
-
-            </div>
-
-            {% if current_step %}
-
-            <hr>
-
-            <h5>Approval</h5>
-
-            <form method="POST">
-
-                <div class="mb-3">
-
-                    <label class="form-label">
-
-                        Comment
-
-                    </label>
-
-                    <textarea class="form-control" name="comment" rows="4"
-                        placeholder="Enter your comment here..."></textarea>
+                    </div>
 
                 </div>
 
-                <button type="submit" formaction="/documents/approve/{{ document.id }}" class="btn btn-success">
+                {% if current_step %}
 
-                    <i class="bi bi-check-circle"></i>
+                <hr>
 
-                    Approve
+                <h5>Approval</h5>
 
-                </button>
+                <form method="POST">
 
-                <button type="submit" formaction="/documents/reject/{{ document.id }}" class="btn btn-danger ms-2">
+                    <div class="mb-3">
 
-                    <i class="bi bi-x-circle"></i>
+                        <label class="form-label">
 
-                    Reject
+                            Comment
 
-                </button>
+                        </label>
 
-            </form>
+                        <textarea class="form-control" name="comment" rows="4"
+                            placeholder="Enter your comment here..."></textarea>
 
-            {% endif %}
-            <hr>
+                    </div>
 
-            <div class="card mt-4">
+                    <div class="d-grid gap-2 d-md-flex">
 
-                <div class="card-header fw-bold">
+                        <button class="btn btn-success">
 
-                    📜 Approval History
+                            Approve
 
-                </div>
+                        </button>
 
-                <div class="card-body">
+                        <button class="btn btn-danger">
 
-                    {% if history %}
+                            Reject
 
-                    {% for item in history %}
+                        </button>
 
-                    <div class="history-card">
+                    </div>
 
-                        <div class="history-status">
+                </form>
 
-                            <span class="badge
+                {% endif %}
+                <hr>
+
+                <div class="card mt-4">
+
+                    <div class="card-header fw-bold">
+
+                        📜 Approval History
+
+                    </div>
+
+                    <div class="card-body">
+
+                        {% if history %}
+
+                        {% for item in history %}
+
+                        <div class="history-card">
+
+                            <div class="history-status">
+
+                                <span class="badge
             {% if item.action == 'Approved' %}
                 bg-success
             {% elif item.action == 'Rejected' %}
@@ -276,85 +280,87 @@
             {% endif %}
             px-3 py-2 rounded-pill">
 
-                                <i class="bi bi-check-circle-fill"></i>
+                                    <i class="bi bi-check-circle-fill"></i>
 
-                                {{ item.action }}
+                                    {{ item.action }}
 
-                            </span>
+                                </span>
 
-                        </div>
+                            </div>
 
-                        <hr>
+                            <hr>
 
-                        <div class="row">
+                            <div class="row">
 
-                            <div class="col-md-6">
+                                <div class="col-12 col-md-6">
 
-                                <div class="history-value">
+                                    <div class="history-value">
 
-                                    <i class="bi bi-person-circle text-primary me-2"></i>
+                                        <i class="bi bi-person-circle text-primary me-2"></i>
 
-                                    {{ item.approver }}
-                                    
+                                        {{ item.approver }}
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class="history-title">
+
+                                        <i class="bi bi-clock"></i>
+
+                                        Date & Time
+
+                                    </div>
+
+                                    <div class="history-value">
+
+                                        {{ item.approved_at.strftime("%d %b %Y") }}
+
+                                        <br>
+
+                                        {{ item.approved_at.strftime("%H:%M") }}
+
+                                    </div>
+
                                 </div>
 
                             </div>
 
-                            <div class="col-md-6">
+                            {% if item.comment %}
+
+                            <div class="comment-box">
 
                                 <div class="history-title">
 
-                                    <i class="bi bi-clock"></i>
+                                    <i class="bi bi-chat-left-text"></i>
 
-                                    Date & Time
-
-                                </div>
-
-                                <div class="history-value">
-
-                                    {{ item.approved_at.strftime("%d %b %Y") }}
-
-                                    <br>
-
-                                    {{ item.approved_at.strftime("%H:%M") }}
+                                    Comment
 
                                 </div>
 
-                            </div>
-
-                        </div>
-
-                        {% if item.comment %}
-
-                        <div class="comment-box">
-
-                            <div class="history-title">
-
-                                <i class="bi bi-chat-left-text"></i>
-
-                                Comment
+                                {{ item.comment }}
 
                             </div>
 
-                            {{ item.comment }}
+                            {% endif %}
 
                         </div>
+
+                        {% endfor %}
+
+                        {% else %}
+
+                        <p class="text-muted">
+
+                            ยังไม่มีประวัติการอนุมัติ
+
+                        </p>
 
                         {% endif %}
 
                     </div>
-
-                    {% endfor %}
-
-                    {% else %}
-
-                    <p class="text-muted">
-
-                        ยังไม่มีประวัติการอนุมัติ
-
-                    </p>
-
-                    {% endif %}
 
                 </div>
 
@@ -364,6 +370,4 @@
 
     </div>
 
-</div>
-
-{% endblock %}
+    {% endblock %}
