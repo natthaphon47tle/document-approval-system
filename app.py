@@ -21,6 +21,7 @@ from models.user import User
 from models.document import Document
 from models.approval import ApprovalHistory
 from routes.document import document_bp
+from services.email_service import send_test_email
 from routes.dashboard import dashboard_bp
 from routes.account import account_bp
 from models.approval_step import ApprovalStep
@@ -41,6 +42,13 @@ app.register_blueprint(account_bp)
 
 with app.app_context():
     db.create_all()
+
+@app.route("/test-email")
+def test_email():
+
+    send_test_email()
+
+    return "EMAIL TEST SUCCESS"
 
 if __name__ == "__main__":
     app.run(debug=True)
