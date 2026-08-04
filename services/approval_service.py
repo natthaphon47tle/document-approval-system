@@ -4,6 +4,7 @@ from extensions import db
 from models.document import Document
 from models.approval_step import ApprovalStep
 from models.approval import ApprovalHistory
+from services.email_service import send_approval_email
 
 def approve(document_id, user, comment):
 
@@ -88,11 +89,11 @@ def approve(document_id, user, comment):
 
     else:
 
-        # Workflow เสร็จแล้ว
-
         document.status = "Approved"
 
         document.current_approver = None
+
+        send_approval_email(document)
 
 
 

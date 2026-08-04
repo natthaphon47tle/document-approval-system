@@ -20,7 +20,10 @@
 
         <div class="card-body">
 
-            <form method="POST" action="/documents/create" enctype="multipart/form-data">
+            <form 
+                method="POST" 
+                action="/documents/create" 
+                enctype="multipart/form-data">
 
                 <div class="row">
 
@@ -30,23 +33,9 @@
 
                         <select class="form-select" name="document_type">
 
-                            <option>Approve Supplier</option>
+                            <option>Approve ASL Supplier List</option>
 
-                            <option>Approve Customer</option>
-
-                            <option>Purchase Request</option>
-
-                            <option>Purchase Order</option>
-
-                            <option>Quotation Approval</option>
-
-                            <option>Invoice Approval</option>
-
-                            <option>Expense Claim</option>
-
-                            <option>Leave Request</option>
-
-                            <option>Other</option>
+                            <option>Approve ASL Supplier Case by Case</option>
 
                         </select>
 
@@ -72,7 +61,10 @@
 
                         <label class="form-label">Attachment</label>
 
-                        <input type="file" class="form-control" name="document_file">
+                        <input
+                            type="file"
+                            class="form-control"
+                            name="document_file">
 
                     </div>
 
@@ -143,7 +135,7 @@
                     </button>
 
                 </div>
-                
+
             </form>
 
         </div>

@@ -24,6 +24,7 @@ from routes.document import document_bp
 from routes.dashboard import dashboard_bp
 from routes.account import account_bp
 from models.approval_step import ApprovalStep
+from models.attachment import Attachment
 
 @login_manager.user_loader
 def load_user(user_id):

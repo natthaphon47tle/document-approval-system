@@ -27,11 +27,21 @@ def create_document():
 
         today = datetime.now().strftime("%Y%m%d")
 
+        document_type = request.form["document_type"]
+
+        prefix_map = {
+            "Approve ASL Supplier List": "ASL",
+            "Approve ASL Supplier Case by Case": "ASLC",
+        }
+
+        prefix = prefix_map.get(document_type, "DOC")
+
         count = Document.query.filter(
-            func.date(Document.created_at) == datetime.today().date()
+            func.date(Document.created_at) == datetime.today().date(),
+            Document.document_no.like(f"{prefix}-%")
         ).count()
 
-        document_no = f"DOC-{today}-{count+1:04d}"
+        document_no = f"{prefix}-{today}-{count+1:04d}"
 
         file = request.files.get("document_file")
 
@@ -41,7 +51,9 @@ def create_document():
 
             ext = os.path.splitext(file.filename)[1]
 
-            stored_filename = secure_filename(document_no + ext)
+            stored_filename = secure_filename(
+                document_no + ext
+            )
 
             file.save(
                 os.path.join(
@@ -51,6 +63,10 @@ def create_document():
             )
 
             print("SAVE FILE :", stored_filename)
+
+        print("FILE :", file)
+        print("FILENAME :", file.filename if file else "NO FILE")
+        print("STORED :", stored_filename)
 
         document = Document(
             document_no=document_no,
