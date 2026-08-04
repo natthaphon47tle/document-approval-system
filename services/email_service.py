@@ -22,6 +22,11 @@ def send_test_email():
     msg["From"] = Config.MAIL_DEFAULT_SENDER
     msg["To"] = Config.ACCOUNTING_EMAIL
 
+    print("MAIL_SERVER =", Config.MAIL_SERVER)
+    print("MAIL_PORT =", Config.MAIL_PORT)
+    print("MAIL_USERNAME =", Config.MAIL_USERNAME)
+    print("MAIL_PASSWORD =", bool(Config.MAIL_PASSWORD))
+
     with smtplib.SMTP(
         Config.MAIL_SERVER,
         Config.MAIL_PORT,
