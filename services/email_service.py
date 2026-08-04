@@ -30,18 +30,25 @@ def send_test_email():
     with smtplib.SMTP(
         Config.MAIL_SERVER,
         Config.MAIL_PORT,
+        timeout=10
     ) as server:
 
+        print("CONNECTED")
+
+        server.ehlo()
+
         server.starttls()
+
+        print("TLS OK")
+
+        server.ehlo()
 
         server.login(
             Config.MAIL_USERNAME,
             Config.MAIL_PASSWORD
         )
 
-        server.send_message(msg)
-
-    print("Email sent successfully.")
+        print("LOGIN OK")
 
 def send_approval_email(document):
 
