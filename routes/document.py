@@ -1,4 +1,14 @@
-from flask import Blueprint, render_template, request, redirect, current_app, send_from_directory, flash, abort
+from flask import (
+    Blueprint,
+    render_template,
+    request,
+    redirect,
+    url_for,
+    current_app,
+    send_from_directory,
+    flash,
+    abort
+)
 from flask_login import login_required, current_user
 
 from datetime import datetime
@@ -27,14 +37,29 @@ def create_document():
 
         today = datetime.now().strftime("%Y%m%d")
 
-        document_type = request.form["document_type"]
+        document_type_code = request.form["document_type"]
 
-        prefix_map = {
-            "Approve ASL Supplier List": "ASL",
-            "Approve ASL Supplier Case by Case": "ASLC",
+        type_map = {
+            "ASL_SUPPLIER_LIST": "Approve ASL Supplier List",
+            "ASL_CASE": "Approve ASL Supplier Case by Case",
         }
 
-        prefix = prefix_map.get(document_type, "DOC")
+        document_type = type_map.get(
+            document_type_code,
+            document_type_code
+        )
+
+        print(document_type)
+
+        prefix_map = {
+            "ASL_SUPPLIER_LIST": "ASL",
+            "ASL_CASE": "ASLC",
+        }
+
+        prefix = prefix_map.get(
+            document_type_code,
+            "DOC"
+        )
 
         count = Document.query.filter(
             func.date(Document.created_at) == datetime.today().date(),
@@ -44,6 +69,17 @@ def create_document():
         document_no = f"{prefix}-{today}-{count+1:04d}"
 
         file = request.files.get("document_file")
+
+        if not file or file.filename == "":
+
+            flash(
+                "Please select a document file.",
+                "danger"
+            )
+
+            return redirect(
+                url_for("document.create_document")
+            )
 
         stored_filename = ""
 
@@ -61,12 +97,6 @@ def create_document():
                     stored_filename
                 )
             )
-
-            print("SAVE FILE :", stored_filename)
-
-        print("FILE :", file)
-        print("FILENAME :", file.filename if file else "NO FILE")
-        print("STORED :", stored_filename)
 
         document = Document(
             document_no=document_no,
@@ -210,15 +240,6 @@ def waiting_documents():
         )
         .all()
     )
-
-    print("================================")
-    print("Current User ID :", current_user.id)
-    print("Waiting Count :", len(waiting_steps))
-
-    for step in waiting_steps:
-        print(step.document_id, step.approver_id, step.status)
-
-    print("================================")
 
     return render_template(
         "documents/waiting.html",
