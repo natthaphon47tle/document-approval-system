@@ -1,0 +1,51 @@
+{% extends "layout/base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>Email Settings</h2>
+
+    <form method="POST">
+
+    <div class="card shadow-sm mt-3">
+
+        <div class="card-body">
+
+            <label class="form-label">
+                Recipient Email
+            </label>
+
+            <input
+                type="email"
+                class="form-control"
+                name="recipient_email"
+                value="{{ email_setting.recipient_email }}"
+                required
+            >
+
+            <label class="form-label mt-3">
+                CC Email (Optional)
+            </label>
+
+            <input
+                type="email"
+                class="form-control"
+                name="cc_email"
+                value="{{ email_setting.cc_email or '' }}"
+            >
+
+            <button
+                class="btn btn-primary mt-3">
+
+                Save
+
+            </button>
+
+        </div>
+
+    </div>
+
+</form>
+
+{% endblock %}

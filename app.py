@@ -26,6 +26,8 @@ from routes.dashboard import dashboard_bp
 from routes.account import account_bp
 from models.approval_step import ApprovalStep
 from models.attachment import Attachment
+from models.email_setting import EmailSetting
+from routes.settings import settings_bp
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -39,9 +41,22 @@ app.register_blueprint(user_bp)
 app.register_blueprint(document_bp)
 app.register_blueprint(dashboard_bp)
 app.register_blueprint(account_bp)
+app.register_blueprint(settings_bp)
 
 with app.app_context():
     db.create_all()
+
+    from models.email_setting import EmailSetting
+
+    if EmailSetting.query.count() == 0:
+        setting = EmailSetting(
+            recipient_email="accounting@gmail.com"
+        )
+
+        db.session.add(setting)
+        db.session.commit()
+
+        print("Email Setting Created")
 
 @app.route("/test-email")
 def test_email():
