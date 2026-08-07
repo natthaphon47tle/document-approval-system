@@ -11,7 +11,7 @@ def settings():
 
     if request.method == "POST":
         email_setting.recipient_email = request.form["recipient_email"]
-        email_setting.cc_email = request.form["cc_email"]
+        #email_setting.cc_email = request.form["cc_email"]
 
         db.session.commit()
 
